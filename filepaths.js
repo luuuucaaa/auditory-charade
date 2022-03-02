@@ -1,0 +1,22 @@
+const filePathsSoundset = [
+    "assets/soundset/sound_1.wav",
+    "assets/soundset/sound_2.wav",
+    "assets/soundset/sound_3.wav",
+    "assets/soundset/sound_4.wav",
+    "assets/soundset/sound_5.wav",
+    "assets/soundset/sound_6.wav",
+    "assets/soundset/sound_7.wav",
+    "assets/soundset/sound_8.wav",
+    "assets/soundset/sound_9.wav",
+    "assets/soundset/sound_10.wav",
+    "assets/soundset/sound_11.wav",
+    "assets/soundset/sound_12.wav",
+    "assets/soundset/sound_13.wav",
+    "assets/soundset/sound_14.wav",
+    "assets/soundset/sound_15.wav",
+    "assets/soundset/sound_16.wav",
+    "assets/soundset/sound_17.wav",
+    "assets/soundset/sound_18.wav",
+    "assets/soundset/sound_19.wav",
+    "assets/soundset/sound_20.wav"
+]
