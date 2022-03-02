@@ -150,7 +150,7 @@ class SoundObject {
         if (this.rollover || this.dragging) {
             this.alpha = 200;
         } else if (this.alpha > 0) {
-            this.alpha -= 1.5;
+            this.alpha -= 10;
         };
         this.color.setAlpha(this.alpha)
         fill(this.color);
