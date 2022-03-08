@@ -48,7 +48,7 @@ class Button {
     }
 }
 
-let binauralButton, multichannelButton, playButton, infoButton, optionsButton, resetButton, menuButton;
+let binauralButton, multichannelButton, playButton, infoButton, optionsButton, resetButton, menuButton, playbackButton, stopButton;
 
 function createButtons() {
     binauralButton = new Button(width/2, height/2 - 100, 800, 100, getRandomHpiColor(10, 255), 'Binaural Audio', binauralButtonPressed);
@@ -58,6 +58,8 @@ function createButtons() {
     optionsButton = new Button(80, height - 50, 120, 60, color(255), 'Back', optionsButtonPressed);
     resetButton = new Button(width - 90, 50, 140, 60, color(255), 'Reset', resetButtonPressed);
     menuButton = new Button(80, height - 50, 120, 60, color(255), 'Menu', menuButtonPressed);
+    playbackButton = new Button(width/2, 50, 280, 60, color(255), 'Play Scenes', playbackButtonPressed);
+    stopButton = new Button(width/2, 50, 280, 60, color(255), 'Stop Scenes', stopButtonPressed);
 }
 
 function binauralButtonPressed() {
@@ -110,14 +112,35 @@ function resetButtonPressed() {
     for (let i = 0; i < soundObjects.length; i++) {
         soundObjects[i].x = soundObjects[i].xBuffer = soundObjects[i].xInit;
         soundObjects[i].y = soundObjects[i].yBuffer = soundObjects[i].yInit;
+        for (let j = 0; j < soundObjects[i].inScene.length; j++) {
+            soundObjects[i].inScene[j] = false;
+        }
+    }
+    for (let i = 0; i < scenes.length; i++) {
+        scenes[i].soundObjectStack = [];
     }
     buttonAlphaReset();
 }
 
 function menuButtonPressed() {
+    multichannelPannerPositions = [{x: 200, y: 200}, {x: 1400, y: 200}, {x: 1400, y: 800}, {x: 200, y: 800}];
     MODE = 'menu';
     buttonAlphaReset();
     startThemeSong();
+}
+
+function playbackButtonPressed() {
+    MODE = 'play';
+    PLAYBACK = true;
+    buttonAlphaReset();
+}
+
+function stopButtonPressed() {
+    for (let i = 0; i < timeout.length; i++) {
+        clearTimeout(timeout[i]);
+    }
+    MODE = 'game';
+    buttonAlphaReset();
 }
 
 function buttonAlphaReset() {

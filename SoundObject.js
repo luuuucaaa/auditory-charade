@@ -1,5 +1,5 @@
 class SoundObject {
-    constructor(x, y, w, id, filepath) {
+    constructor(x, y, w, col, id, filepath) {
         this.dragging = false;
         this.rollover = false;
         this.playing = false;
@@ -9,7 +9,7 @@ class SoundObject {
         this.angle = 0;
         this.offsetX = 0;
         this.offsetY = 0;
-        this.color = getRandomHpiColor(10, 255);
+        this.color = col;
         this.colorBuffer = this.color;
         this.alpha = 0;
 
@@ -23,6 +23,7 @@ class SoundObject {
 
         this.id = id;
         this.filepath = filepath;
+        this.inScene = new Array(scenes.length).fill(false);
     }
     createAudioNodes(multichannel=false) {
         if (!multichannel) {
@@ -68,31 +69,33 @@ class SoundObject {
     over() {
         if (mouseX > this.x - this.w/2 && mouseX < this.x + this.w/2 && mouseY > this.y - this.w/2 && mouseY < this.y + this.w/2) {
             this.rollover = true;
-            this.startAudio();
+            //this.startAudio();
         } else {
             this.rollover = false;
-            if (!this.dragging) {
+            /* if (!this.dragging) {
                 this.stopAudio();
-            }
+            } */
         }
     }
     pressed() {
         if (mouseX > this.x - this.w/2 && mouseX < this.x + this.w/2 && mouseY > this.y - this.w/2 && mouseY < this.y + this.w/2) {
             this.dragging = true;
+            mouseOccupied = true;
             this.offsetX = this.x - mouseX;
             this.offsetY = this.y - mouseY;
         }
     }
     released() {
         this.dragging = false;
+        mouseOccupied = false;
     }
     update() {
         if (this.dragging) {
             this.x = mouseX + this.offsetX;
             this.y = mouseY + this.offsetY;
-            this.xBuffer = this.x;
-            this.yBuffer = this.y;
         }
+        this.xBuffer = this.x;
+        this.yBuffer = this.y;
     }
     drift() {
         this.x += this.velocity[0];
@@ -159,21 +162,23 @@ class SoundObject {
     }
 }
 
+let _id = 0;
 function createSoundObjects(rows, columns) {
     let soundObjects = [];
     let w = 40;
     let d = 20;
-    let id = 0;
     for (let row = 0; row < rows; row++) {
         for (let col = 0; col < columns; col++) {
             soundObjects.push(new SoundObject(
                 (width/2 - (columns * (d + w)/2) + d/2) + w/2 + col * (w + d),
                 4 * height/5 + w/2 + row * (w + d),
                 w,
-                id,
-                filePathsSoundset[id]
+                getRandomHpiColor(10, 255),
+                _id,
+                filePathsSoundset[_id]
             ));
-            id++;
+            _id++;
+            console.log(_id);
         }
     }
     return soundObjects;

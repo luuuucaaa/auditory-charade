@@ -6,9 +6,15 @@ let config = {
 
 let MODE = 'options';
 let AUDIO_MODE;
+let PLAYBACK = false;
 let font, hpi;
+let cvs;
 
-let soundObjects;
+let mouseOccupied = false;
+
+const SOUNDOBJECT_ROWS = 2;
+const SOUNDOBJECT_COLS = 10;
+let soundObjects, scenes;
 
 function preload() {
     font = loadFont('./assets/retro.ttf');
@@ -16,11 +22,12 @@ function preload() {
 }
 
 function setup() {
-    createCanvas(config['width'], config['height']);
+    cvs = createCanvas(config['width'], config['height']);
     createButtons();
     createErrorMessages();
     createTextbox();
-    soundObjects = createSoundObjects(2, 10);
+    scenes = createScenes();
+    soundObjects = createSoundObjects(SOUNDOBJECT_ROWS, SOUNDOBJECT_COLS);
 }
 
 function draw() {
@@ -31,6 +38,8 @@ function draw() {
         menuMode();
     } else if (MODE === 'game') {
         gameMode();
+    } else if (MODE === 'play') {
+        playbackMode(3000);
     }
     image(hpi, width - 220, height - 130, 0.2 * hpi.width, 0.2 * hpi.height);
 }
@@ -49,6 +58,9 @@ function mousePressed() {
         }
         menuButton.pressed();
         resetButton.pressed();
+        playbackButton.pressed();
+    } else if (MODE === 'play') {
+        stopButton.pressed();
     }
 }
   

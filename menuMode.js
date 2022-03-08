@@ -1,17 +1,5 @@
 function menuMode() {
-    drawListener();
-    for (let i = 0; i < soundObjects.length; i++) {
-        if (AUDIO_MODE == 'binaural') {
-            updateBinauralPanner(i);
-        } else {
-            updateMultichannelPanner(i);
-            drawMultichannelPanner();
-        }
-        soundObjects[i].drift();
-        soundObjects[i].border();
-        soundObjects[i].over();
-        soundObjects[i].show();
-    }
+    handleSoundObjectsMenuMode()
     playButton.over();
     playButton.show();
     infoButton.over();
@@ -19,4 +7,26 @@ function menuMode() {
     textbox.show();
     optionsButton.over();
     optionsButton.show();
+}
+
+function handleSoundObjectsMenuMode() {
+    for (let i = 0; i < soundObjects.length; i++) {
+        soundObjects[i].drift();
+        soundObjects[i].border();
+        soundObjects[i].over();
+        soundObjects[i].show();
+        if (soundObjects[i].rollover) {
+            if (!mouseOccupied) {
+                soundObjects[i].startAudio();
+            }
+        } else {
+            soundObjects[i].stopAudio();
+        }
+        if (AUDIO_MODE == 'binaural') {
+            updateBinauralPanner(i);
+        } else if (AUDIO_MODE == 'multichannel') {
+            updateMultichannelPanner(i);
+            drawMultichannelPanner();
+        }
+    }
 }

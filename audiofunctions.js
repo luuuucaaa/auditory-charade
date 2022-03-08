@@ -1,4 +1,5 @@
-let audioCtx, listener, listenerPosition;
+let audioCtx, listener;
+let listenerPosition = [0, 0];
 let themesong;
 
 function startThemeSong() {
@@ -38,13 +39,6 @@ function initMultichannelAudio() {
         soundObjects[i].createAudioNodes(multichannel=true);
     }
     startThemeSong();
-}
-
-function drawListener() {
-    stroke(255, 255, 255, 80)
-    noFill();
-    point(listenerPosition[0], listenerPosition[1]);
-    circle(listenerPosition[0], listenerPosition[1], 40);
 }
   
 function getAudioData(filePath, gainNode) {
@@ -151,6 +145,39 @@ function drawMultichannelPanner() {
         circle(multichannelPannerPositions[i].x, multichannelPannerPositions[i].y, 20);
         circle(multichannelPannerPositions[i].x, multichannelPannerPositions[i].y, 40);
         circle(multichannelPannerPositions[i].x, multichannelPannerPositions[i].y, 60);
-        circle(multichannelPannerPositions[i].x, multichannelPannerPositions[i].y, 80);
+    }
+}
+
+let multichannelPannerPositionsRelativeToListener;
+function updateListenerPosition(i) {
+    multichannelPannerPositionsRelativeToListener = [
+        {
+            x: -(scenes[0].nX * scenes[0].gridWidth)/2,
+            y: -(scenes[0].nY * scenes[0].gridWidth)/2
+        },
+        {
+            x: (scenes[0].nX * scenes[0].gridWidth)/2,
+            y: -(scenes[0].nY * scenes[0].gridWidth)/2
+        },
+        {
+            x: (scenes[0].nX * scenes[0].gridWidth)/2,
+            y: (scenes[0].nY * scenes[0].gridWidth)/2
+        },
+        {
+            x: -(scenes[0].nX * scenes[0].gridWidth)/2,
+            y: (scenes[0].nY * scenes[0].gridWidth)/2
+        }
+    ];
+    if (listenerPosition[0] != scenes[i].x + (scenes[i].gridWidth * scenes[i].nX)/2 || listenerPosition[1] != scenes[i].y + (scenes[i].gridWidth * scenes[i].nY)/2) {
+        listener.setPosition(scenes[i].x + (scenes[i].gridWidth * scenes[i].nX)/2, scenes[i].y + (scenes[i].gridWidth * scenes[i].nY)/2, 0);
+        listenerPosition[0] = scenes[i].x + (scenes[i].gridWidth * scenes[i].nX)/2 - scenes[i].gridWidth/2;
+        listenerPosition[1] = scenes[i].y + (scenes[i].gridWidth * scenes[i].nY)/2 - scenes[i].gridWidth/2;
+        if (AUDIO_MODE == 'multichannel') {
+            for (let i = 0; i < multichannelPannerPositions.length; i++) {
+                multichannelPannerPositions[i].x = listenerPosition[0] + multichannelPannerPositionsRelativeToListener[i].x;
+                multichannelPannerPositions[i].y = listenerPosition[1] + multichannelPannerPositionsRelativeToListener[i].y;
+            }
+        }
+        // console.log('updated listener position');
     }
 }
