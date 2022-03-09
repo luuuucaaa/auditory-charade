@@ -21,12 +21,12 @@ function preload() {
     hpi = loadImage('./assets/hpilogo.png');
 }
 
-function windowResized() {
+/* function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
-  }
+} */
 
 function setup() {
-    cvs = createCanvas(windowWidth, windowHeight);
+    cvs = createCanvas(config['width'], config['heigth']);
     createButtons();
     createErrorMessages();
     createTextbox();
