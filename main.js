@@ -26,7 +26,7 @@ function preload() {
 } */
 
 function setup() {
-    cvs = createCanvas(config['width'], config['heigth']);
+    cvs = createCanvas(config['width'], config['height']);
     createButtons();
     createErrorMessages();
     createTextbox();
