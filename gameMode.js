@@ -1,4 +1,5 @@
 function gameMode() {
+    displayAudioMode();
     handleSoundObjectsGameMode();
     menuButton.over();
     menuButton.show();
@@ -52,8 +53,8 @@ function duplicateSoundObjects(i) {
     if (soundObjects[i].rollover) {
         cvs.doubleClicked(function() {
             soundObjectDuplicate = new SoundObject(
-                soundObjects[i].x + 20,//width - 50 - random(100),
-                soundObjects[i].y - 20,//height - 200 - random(height - 400),
+                soundObjects[i].x + 20,
+                soundObjects[i].y - 20,
                 soundObjects[i].w,
                 soundObjects[i].color,
                 _id,

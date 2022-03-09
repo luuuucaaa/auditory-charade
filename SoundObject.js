@@ -171,14 +171,13 @@ function createSoundObjects(rows, columns) {
         for (let col = 0; col < columns; col++) {
             soundObjects.push(new SoundObject(
                 (width/2 - (columns * (d + w)/2) + d/2) + w/2 + col * (w + d),
-                4 * height/5 + w/2 + row * (w + d),
+                4.25 * height/5 + w/2 + row * (w + d),
                 w,
                 getRandomHpiColor(10, 255),
                 _id,
                 filePathsSoundset[_id]
             ));
             _id++;
-            console.log(_id);
         }
     }
     return soundObjects;

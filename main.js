@@ -21,17 +21,26 @@ function preload() {
     hpi = loadImage('./assets/hpilogo.png');
 }
 
+function windowResized() {
+    resizeCanvas(windowWidth, windowHeight);
+  }
+
 function setup() {
-    cvs = createCanvas(config['width'], config['height']);
+    cvs = createCanvas(windowWidth, windowHeight);
     createButtons();
     createErrorMessages();
     createTextbox();
+    createPerlingrid();
     scenes = createScenes();
     soundObjects = createSoundObjects(SOUNDOBJECT_ROWS, SOUNDOBJECT_COLS);
 }
 
 function draw() {
     background(0);
+    handlePerlingrid();
+    fullscreenButton.over();
+    fullscreenButton.show();
+    // displayFramerate();
     if (MODE === 'options') {
         optionsMode();
     } else if (MODE === 'menu') {
@@ -45,6 +54,7 @@ function draw() {
 }
 
 function mousePressed() {
+    fullscreenButton.pressed();
     if (MODE === 'options') {
         binauralButton.pressed();
         multichannelButton.pressed();

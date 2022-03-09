@@ -19,3 +19,22 @@ function getRandomHpiColor(randomRange, alpha) {
     col.push(alpha);
     return color(col)
 }
+
+function displayFramerate() {
+    textAlign(LEFT);
+    textSize(18);
+    textFont(font);
+    noStroke();
+    fill(255);
+    text(floor(frameRate()), width - 300, height - 15);
+}
+
+function displayAudioMode() {
+    textAlign(CENTER);
+    textSize(18);
+    textFont(font);
+    noStroke();
+    fill(255);
+    if (AUDIO_MODE == 'binaural') text('binaural mode', width/2, height - 20);
+    if (AUDIO_MODE == 'multichannel') text('multichannel mode', width/2, height - 20);
+}

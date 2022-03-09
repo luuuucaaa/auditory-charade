@@ -1,5 +1,6 @@
 let timeout = [];
 function playbackMode(time) {
+    displayAudioMode();
     handleSoundObjectsPlayMode();
     stopButton.show();
     stopButton.over();

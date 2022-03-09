@@ -1,4 +1,5 @@
 function menuMode() {
+    displayAudioMode();
     handleSoundObjectsMenuMode()
     playButton.over();
     playButton.show();

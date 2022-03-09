@@ -19,23 +19,6 @@ class Scene {
             line(this.x - this.gridWidth/2, this.y + i * this.gridWidth - this.gridWidth/2, this.x + this.nX * this.gridWidth - this.gridWidth/2, this.y + i * this.gridWidth - this.gridWidth/2);
         }
 
-        /* // hover overlay
-        this.highlight = new fabric.Rect({
-            name: "gridHighlight",
-            left: this.x,
-            top: this.y,
-            fill: '#54f0a2',
-            opacity: 0,
-            width: this.nX * this.gridWidth,
-            height: this.nY * this.gridWidth,
-            hasBorders: false,
-            hasControls: false,
-            selectable: false,
-            hasRotatingPoint : false,
-            hoverCursor: "default"
-        });
-        canvas.add(this.highlight); */
-
         if (this.isInside(listenerPosition[0], listenerPosition[1])) {
             this.alpha = 255;
         } else {
@@ -67,7 +50,7 @@ function createScenes() {
     let scenes = [];
     for (let i = 0; i < nRowsScenes; i++) {
         for (let j = 0; j < nColumnsScenes; j++) {
-            let scene = new Scene(300 + j * 400, 150 + i * 350, 5, 5, 50);
+            let scene = new Scene(300 + j * 400, 200 + i * 350, 5, 5, 50);
             scene.show();
             scenes.push(scene);
         }

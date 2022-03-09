@@ -48,7 +48,7 @@ class Button {
     }
 }
 
-let binauralButton, multichannelButton, playButton, infoButton, optionsButton, resetButton, menuButton, playbackButton, stopButton;
+let binauralButton, multichannelButton, playButton, infoButton, optionsButton, resetButton, menuButton, playbackButton, stopButton, fullscreenButton;
 
 function createButtons() {
     binauralButton = new Button(width/2, height/2 - 100, 800, 100, getRandomHpiColor(10, 255), 'Binaural Audio', binauralButtonPressed);
@@ -60,6 +60,7 @@ function createButtons() {
     menuButton = new Button(80, height - 50, 120, 60, color(255), 'Menu', menuButtonPressed);
     playbackButton = new Button(width/2, 50, 280, 60, color(255), 'Play Scenes', playbackButtonPressed);
     stopButton = new Button(width/2, 50, 280, 60, color(255), 'Stop Scenes', stopButtonPressed);
+    fullscreenButton = new Button(145, 50, 250, 60, color(255), 'Fullscreen', fullscreenButtonPressed);
 }
 
 function binauralButtonPressed() {
@@ -141,6 +142,11 @@ function stopButtonPressed() {
     }
     MODE = 'game';
     buttonAlphaReset();
+}
+
+function fullscreenButtonPressed() {
+    let fs = fullscreen();
+    fullscreen(!fs);
 }
 
 function buttonAlphaReset() {
